@@ -3,6 +3,7 @@ package com.cifpcesarmanrique.ejercicio3animales.services;
 import com.cifpcesarmanrique.ejercicio3animales.exceptions.AnimalNotFoundException;
 import com.cifpcesarmanrique.ejercicio3animales.interfaces.AnimalService;
 import com.cifpcesarmanrique.ejercicio3animales.models.Animal;
+import com.cifpcesarmanrique.ejercicio3animales.models.Family;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 
@@ -10,10 +11,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-    @Primary
+    // @Primary
     @Service
     public class AnimalServiceMem implements AnimalService {
-        private List<Animal> animals = new ArrayList<>(Arrays.asList(new Animal(1, "Dodo", 58, true), new Animal(2, "Hen", 5, false),new Animal(3, "Ladybug", 2, false)));
+        private List<Animal> animals = new ArrayList<>(Arrays.asList(new Animal(1, "Dodo", 58, true, new Family(1,"Birds")), new Animal(2, "Hen", 5, false, new Family(1,"Birds")),new Animal(3, "Ladybug", 2, false, new Family(2,"Insects"))));
         private int animalsCount = 3;
 
         public List<Animal> getAnimals() {

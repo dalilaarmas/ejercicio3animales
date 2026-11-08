@@ -25,6 +25,15 @@
             <label class="form-check-label" for="extinct">Extinct animal</label>
             <small class="text-danger" th:if="${#fields.hasErrors('extinct')}" th:errors="*{extinct}">Extinct Error</small>
         </div>
+        <div class=" mb-3">
+            <label for="familySelect" class="form-label">Family</label>
+            <select id="familySelect" class="form-select" th:field="*{family}">
+                <option th:each="f : ${families}"
+                        th:value="${f.id}"
+                        th:text="${f.name}">
+                </option>
+            </select>
+        </div>
         <button type="submit" class="btn btn-primary">Create</button>
     </form>
     <a th:href="@{/animals}">Come back to the list</a>

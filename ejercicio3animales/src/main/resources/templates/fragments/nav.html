@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Nav</title>
@@ -7,9 +7,13 @@
 </head>
 <body>
 <header th:fragment="mi-header">
-    <div class="bg-primary text-white p-4 fs-2">
-        <div class="container">
-            <h1 class="fw-normal h3">Animalia</h1>
+    <div class="bg-primary text-white p-4 fs-2 fw-normal">
+        <div class="container d-flex gap-4">
+            <h1 class="h1">Zoopolis</h1>
+
+            <a class="link-light text-decoration-none link-opacity-50 link-opacity-100-hover h2" th:href="@{/animals}">Animals</a>
+
+            <a class="link-light link-opacity-50 link-opacity-100-hover text-decoration-none h2" th:href="@{/families}">Families</a>
         </div>
     </div>
 

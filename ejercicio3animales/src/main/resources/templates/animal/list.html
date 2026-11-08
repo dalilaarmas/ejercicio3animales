@@ -16,12 +16,14 @@
         <th class="col">Name</th>
         <th class="col">Average Lifespan</th>
         <th class="col">Extinct</th>
+        <th class="col">Family</th>
         <th class="col">Actions</th>
         <tr th:each="animal: ${animals}">
             <td th:text="${animal.id}">id</td>
             <td th:text="${animal.name}">name</td>
             <td th:text="${animal.averageLifespan}">lifespan</td>
             <td th:text="${animal.extinct} ? 'Yes' : 'No'">extinct</td>
+            <td th:text="${animal.family?.name ?: 'No Family'}">family</td>
             <td>
                 <a class="btn btn-sm btn-outline-success text-decoration-none" th:href="@{animals/details(id=${animal.id})}">Details</a>
                 <a class="btn btn-sm btn-outline-warning text-decoration-none" th:href="@{animals/edit/{id}(id=${animal.id})}">Edit</a>

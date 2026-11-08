@@ -1,8 +1,5 @@
 package com.cifpcesarmanrique.ejercicio3animales.models;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 @Entity
 public class Animal {
@@ -20,12 +17,16 @@ public class Animal {
 
     private boolean extinct;
 
+    @ManyToOne
+    private Family family;
+
     public Animal(){}
-    public Animal(int id, String name, int averageLifespan, boolean extinct){
+    public Animal(int id, String name, int averageLifespan, boolean extinct, Family family){
         this.id = id;
         this.name = name;
         this.averageLifespan = averageLifespan;
         this.extinct = extinct;
+        this.family = family;
     }
 
     public int getId() {
@@ -58,5 +59,13 @@ public class Animal {
 
     public void setExtinct(boolean extinct) {
         this.extinct = extinct;
+    }
+
+    public Family getFamily() {
+        return family;
+    }
+
+    public void setFamily(Family family) {
+        this.family = family;
     }
 }

@@ -1,6 +1,7 @@
 package com.cifpcesarmanrique.ejercicio3animales.controllers;
 
 import com.cifpcesarmanrique.ejercicio3animales.exceptions.AnimalNotFoundException;
+import com.cifpcesarmanrique.ejercicio3animales.interfaces.FamilyService;
 import com.cifpcesarmanrique.ejercicio3animales.models.Animal;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,10 +16,13 @@ public class AnimalController {
     @Autowired
     private AnimalService as;
 
+    @Autowired
+    private FamilyService fs;
+
     @GetMapping("/animals")
     public String list(Model model) {
         model.addAttribute("animals", as.getAnimals());
-        return "list";
+        return "animal/list";
     }
 
     @GetMapping("/animals/details")
@@ -27,7 +31,7 @@ public class AnimalController {
         try{
             Animal animal = as.getAnimal(id);
             model.addAttribute("animal", animal);
-            response = "details";
+            response = "animal/details";
         } catch (AnimalNotFoundException e){
             model.addAttribute("error", e.getMessage());
             response = "error/error";
@@ -40,14 +44,17 @@ public class AnimalController {
     public String createAnimal(Model model) {
         Animal animal = new Animal();
         model.addAttribute("animal", new Animal());
-        return "create";
+
+        model.addAttribute("families", fs.getFamilies());
+        return "animal/create";
     }
 
     @PostMapping ("/animals")
         public String createAnimal(@Valid @ModelAttribute("animal") Animal animal, BindingResult bindingResult, Model model){
         String response = null;
         if(bindingResult.hasErrors()){
-            response = "create";
+            model.addAttribute("families", fs.getFamilies());
+            response = "animal/create";
         }else {
             as.addAnimal(animal);
             response = "redirect:/animals";
@@ -62,7 +69,8 @@ public class AnimalController {
         try {
             Animal animal = as.getAnimal(id);
             model.addAttribute("animal", animal);
-            return "edit";
+            model.addAttribute("families", fs.getFamilies());
+            return "animal/edit";
         }catch (AnimalNotFoundException e) {
             model.addAttribute("error", e.getMessage());
             response = "error/error";
@@ -75,7 +83,8 @@ public class AnimalController {
         String response = null;
         try{
             if(bindingResult.hasErrors()){
-                response = "edit";
+                model.addAttribute("families", fs.getFamilies());
+                response = "animal/edit";
             }else {
                 as.editAnimal(animal);
                 response = "redirect:/animals";
@@ -95,7 +104,7 @@ public class AnimalController {
         try{
             Animal animal = as.getAnimal(id);
             model.addAttribute("animal", animal);
-            response = "delete";
+            response = "animal/delete";
         } catch (AnimalNotFoundException e) {
             model.addAttribute("error", e.getMessage());
             response = "error/error";
